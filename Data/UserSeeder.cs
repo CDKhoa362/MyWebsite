@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
-using Diary_App.Constants;
+using MyWebsite.Constants;
 
-namespace Diary_App.Data
+namespace MyWebsite.Data
 {
     public class UserSeeder
     {

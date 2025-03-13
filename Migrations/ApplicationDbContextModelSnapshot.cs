@@ -224,6 +224,89 @@ namespace MyWebsite.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
+            modelBuilder.Entity("MyWebsite.Models.Location.Country", b =>
+                {
+                    b.Property<string>("CountryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("Alp2")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("Alp3")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CountryName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PhoneCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("CountryId");
+
+                    b.ToTable("Countries");
+                });
+
+            modelBuilder.Entity("MyWebsite.Models.Location.District", b =>
+                {
+                    b.Property<string>("DistrictId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DistrictName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("StateId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("DistrictId");
+
+                    b.HasIndex("StateId");
+
+                    b.ToTable("Districts");
+                });
+
+            modelBuilder.Entity("MyWebsite.Models.Location.State", b =>
+                {
+                    b.Property<string>("StateId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CountryId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("StateName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("StateId");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("States");
+                });
+
+            modelBuilder.Entity("MyWebsite.Models.Location.Ward", b =>
+                {
+                    b.Property<string>("WardId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("DistrictId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("WardName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("WardId");
+
+                    b.HasIndex("DistrictId");
+
+                    b.ToTable("Wards");
+                });
+
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -273,6 +356,48 @@ namespace MyWebsite.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+                });
+
+            modelBuilder.Entity("MyWebsite.Models.Location.District", b =>
+                {
+                    b.HasOne("MyWebsite.Models.Location.State", "State")
+                        .WithMany("Districts")
+                        .HasForeignKey("StateId");
+
+                    b.Navigation("State");
+                });
+
+            modelBuilder.Entity("MyWebsite.Models.Location.State", b =>
+                {
+                    b.HasOne("MyWebsite.Models.Location.Country", "Country")
+                        .WithMany("States")
+                        .HasForeignKey("CountryId");
+
+                    b.Navigation("Country");
+                });
+
+            modelBuilder.Entity("MyWebsite.Models.Location.Ward", b =>
+                {
+                    b.HasOne("MyWebsite.Models.Location.District", "District")
+                        .WithMany("Wards")
+                        .HasForeignKey("DistrictId");
+
+                    b.Navigation("District");
+                });
+
+            modelBuilder.Entity("MyWebsite.Models.Location.Country", b =>
+                {
+                    b.Navigation("States");
+                });
+
+            modelBuilder.Entity("MyWebsite.Models.Location.District", b =>
+                {
+                    b.Navigation("Wards");
+                });
+
+            modelBuilder.Entity("MyWebsite.Models.Location.State", b =>
+                {
+                    b.Navigation("Districts");
                 });
 #pragma warning restore 612, 618
         }

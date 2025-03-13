@@ -1,7 +1,7 @@
-﻿using Diary_App.Constants;
+﻿using MyWebsite.Constants;
 using Microsoft.AspNetCore.Identity;
 
-namespace Diary_App.Data
+namespace MyWebsite.Data
 {
     public static class RoleSeeder
     {

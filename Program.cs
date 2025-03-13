@@ -1,7 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using MyWebsite.Data;
-using Diary_App.Data;
+using MyWebsite.Data;
 
 var builder = WebApplication.CreateBuilder(args);
 

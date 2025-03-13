@@ -1,4 +1,4 @@
-﻿namespace Diary_App.Constants
+﻿namespace MyWebsite.Constants
 {
     public static class Roles
     {
