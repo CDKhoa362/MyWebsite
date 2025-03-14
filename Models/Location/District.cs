@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using MyWebsite.Models.MyInfor;
 
 namespace MyWebsite.Models.Location;
 
@@ -21,4 +22,5 @@ public partial class District
     public List<SelectListItem>? StatesSelectList { get; set; }
 
     public virtual ICollection<Ward> Wards { get; set; } = new List<Ward>();
+
 }

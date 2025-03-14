@@ -2,6 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using MyWebsite.Models.Location;
+using MyWebsite.Models.MyInfor;
 
 namespace MyWebsite.Models.Location;
 public partial class Country
@@ -19,6 +20,8 @@ public partial class Country
 
     public virtual ICollection<State> States { get; set; } = new List<State>();
 
+
     [NotMapped]
     public List<SelectListItem>? CountriesSelectedList { get; set; }
+
 }

@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace MyWebsite.Migrations
 {
     /// <inheritdoc />
-    public partial class InitialDB : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -172,6 +172,31 @@ namespace MyWebsite.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "UserPosting",
+                columns: table => new
+                {
+                    UserPostingId = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    AvatarPath = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    DOB = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Gender = table.Column<bool>(type: "bit", nullable: false),
+                    HouseNumber = table.Column<string>(type: "nvarchar(20)", maxLength: 20, nullable: true),
+                    Address = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
+                    UserId = table.Column<string>(type: "nvarchar(450)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserPosting", x => x.UserPostingId);
+                    table.ForeignKey(
+                        name: "FK_UserPosting_AspNetUsers_UserId",
+                        column: x => x.UserId,
+                        principalTable: "AspNetUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "States",
                 columns: table => new
                 {
@@ -275,6 +300,12 @@ namespace MyWebsite.Migrations
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_UserPosting_UserId",
+                table: "UserPosting",
+                column: "UserId",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Wards_DistrictId",
                 table: "Wards",
                 column: "DistrictId");
@@ -297,6 +328,9 @@ namespace MyWebsite.Migrations
 
             migrationBuilder.DropTable(
                 name: "AspNetUserTokens");
+
+            migrationBuilder.DropTable(
+                name: "UserPosting");
 
             migrationBuilder.DropTable(
                 name: "Wards");
