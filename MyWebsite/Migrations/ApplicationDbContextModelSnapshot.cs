@@ -315,7 +315,6 @@ namespace MyWebsite.Migrations
                         .HasColumnName("UserPostingId");
 
                     b.Property<string>("Address")
-                        .IsRequired()
                         .HasMaxLength(50)
                         .HasColumnType("nvarchar(50)");
 
@@ -323,11 +322,9 @@ namespace MyWebsite.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("DOB")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Gender")
@@ -338,7 +335,6 @@ namespace MyWebsite.Migrations
                         .HasColumnType("nvarchar(20)");
 
                     b.Property<string>("LastName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("UserId")

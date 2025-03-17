@@ -1,0 +1,61 @@
+﻿@model MyWebsite.Areas.Admin.Models.Location.Country
+<div class="container mt-4 border-primary">
+    <div class="row">
+        <div class="col-md-8 offset-md-2">
+            <div class="card-header">
+                <h2>Edit Country</h2>
+            </div>
+            <div class="card-body">
+                <form asp-action="Edit" method="post">
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingInputGroup1" placeholder="Ví dụ: 704" asp-for="CountryId">
+                        <label for="floatingInput" asp-for="CountryId">Mã Quốc Gia</label>
+                        <span asp-validation-for="CountryId" class="text-danger small"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingInputGroup1" placeholder="Ví dụ: VN" asp-for="CountryName">
+                        <label for="floatingInput" asp-for="CountryName">Tên Quốc Gia</label>
+                        <span asp-validation-for="CountryName" class="text-danger small"></span>
+                    </div>
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingInputGroup1" placeholder="Ví dụ: VN" asp-for="Alp2">
+                        <label for="floatingInput" asp-for="Alp2">Mã Alpha2</label>
+                        <span asp-validation-for="Alp2" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingInputGroup1" placeholder="Ví dụ: VNM" asp-for="Alp3">
+                        <label for="floatingInput" asp-for="Alp3">Mã Alpha3</label>
+                        <span asp-validation-for="Alp3" class="text-danger small"></span>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <input class="form-control" id="floatingInputGroup1" placeholder="Ví dụ: 84" asp-for="PhoneCode">
+                        <label for="floatingInput" asp-for="PhoneCode">Mã vùng</label>
+                        <span asp-validation-for="PhoneCode" class="text-danger small"></span>
+                    </div>
+
+                    <div class="d-flex justify-content-between align-items-center">
+                        <button type="submit" class="btn btn-success" asp-controller="Country" asp-action="Edit">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                            </svg>
+                            Edit
+                        </button>
+                        <a asp-controller="State" asp-action="Index" class="btn btn-secondary">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-x-circle-fill" viewBox="0 0 16 16">
+                                <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.646a.5.5 0 0 0 .708.708L8 8.707l2.646 2.647a.5.5 0 0 0 .708-.708L8.707 8l2.647-2.646a.5.5 0 0 0-.708-.708L8 7.293z" />
+                            </svg>
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <partial name="_ValidationScriptsPartial" />
+}

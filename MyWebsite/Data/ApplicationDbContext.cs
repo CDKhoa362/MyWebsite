@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
-using MyWebsite.Models.Location;
+using MyWebsite.Areas.Admin.Models.Location;
 using MyWebsite.Models.MyInfor;
 namespace MyWebsite.Data
 {
@@ -31,13 +31,13 @@ namespace MyWebsite.Data
                     .IsRequired(false);
 
                 entity.Property(e => e.FirstName)
-                    .IsRequired(true);
+                    .IsRequired(false);
 
                 entity.Property(e => e.LastName)
-                    .IsRequired(true);
+                    .IsRequired(false);
 
                 entity.Property(e => e.DOB)
-                    .IsRequired(true)
+                    .IsRequired(false)
                     .HasConversion(v => v.ToString(), v => DateOnly.Parse(v)); ;
 
                 entity.Property(e => e.HouseNumber)
@@ -45,7 +45,7 @@ namespace MyWebsite.Data
                     .HasMaxLength(20);
 
                 entity.Property(e => e.Address)
-                      .IsRequired(true)
+                      .IsRequired(false)
                       .HasMaxLength(50);
 
                 entity.HasOne(e => e.User)
