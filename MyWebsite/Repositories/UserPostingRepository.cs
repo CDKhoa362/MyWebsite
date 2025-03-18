@@ -1,4 +1,5 @@
-﻿using MyWebsite.Data;
+﻿using Microsoft.EntityFrameworkCore;
+using MyWebsite.Data;
 using MyWebsite.Models.MyInfor;
 using MyWebsite.Repositories;
 
@@ -19,19 +20,32 @@ namespace MyWebsite.Repositories
             await _db.SaveChangesAsync();
         }
 
-        public Task DeleteAsync(string id)
+        public async Task DeleteAsync(string id)
         {
-            throw new NotImplementedException();
+            var userPosting = await _db.UserPostings.FindAsync(id);
+            if (userPosting != null)
+            {
+                _db.UserPostings.Remove(userPosting);
+                await _db.SaveChangesAsync();
+            }
         }
 
-        public Task<IEnumerable<UserPosting>> GetAllAsync()
+        public async Task<IEnumerable<UserPosting>> GetAllAsync()
         {
-            throw new NotImplementedException();
+            return await _db.UserPostings.ToListAsync();
         }
 
-        public Task<UserPosting> GetById(string id)
+        public async Task<UserPosting> GetByIdAsync(string id)
         {
-            throw new NotImplementedException();
+            var userPosting = await _db.UserPostings.FindAsync(id);
+
+            if (userPosting == null)
+            {
+                // Là một exception được ném khi key không tìm thấy trong dictionary
+                throw new KeyNotFoundException();
+            }
+            return userPosting;
+
         }
 
         public async Task UpdateAsync(UserPosting entity)
