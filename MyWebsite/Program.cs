@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using MyWebsite.Data;
 using Microsoft.AspNetCore.Builder;
+using MyWebsite.Models.MyInfor;
+using MyWebsite.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,6 +27,9 @@ builder.Services.Configure<RequestLocalizationOptions>(options =>
     options.AddSupportedCultures(supportedCultures);
     options.AddSupportedUICultures(supportedCultures);
 });
+
+// Repository
+builder.Services.AddScoped<IRepository<UserPosting>, UserPostingRepository>();
 
 var app = builder.Build();
 
