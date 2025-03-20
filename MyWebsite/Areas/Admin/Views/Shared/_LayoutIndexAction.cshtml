@@ -1,0 +1,141 @@
+﻿@{
+    Layout = "~/Areas/Admin/Views/Shared/_LayoutAdmin.cshtml";
+}
+@{
+    int currentPage = ViewBag.CurrentPage;
+    int totalPages = ViewBag.TotalPages;
+}
+
+<style>
+    td,th {
+        white-space: nowrap;
+        text-align: center;
+    }
+
+    .page-input {
+        width: 40px;
+        height: 40px;
+        text-align: center;
+        border: 1px solid #ddd;
+        padding: 0;
+        font-size: 14px;
+        background-color: white;
+        transition: border-color 0.2s, background-color 0.2s;
+        cursor: pointer;
+        box-sizing: border-box;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+
+    .page-item {
+        margin: 0 2px;
+    }
+
+    .page-input:hover {
+        background-color: #f8f9fa;
+    }
+
+    .page-input:focus {
+        outline: none;
+        border-color: #007bff;
+        background-color: white;
+    }
+
+</style>
+
+<div class="container">
+    <div class="row pt-2">
+        <div class="col d-flex gap-2">
+            <a class="btn btn-primary" asp-controller="@ViewContext.RouteData.Values["controller"]" asp-action="Create">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-plus-circle-fill" viewBox="0 0 16 16">
+                    <path d="M16 8A8 8 0 1 1 0 8a8 8 0 0 1 16 0M8.5 4.5a.5.5 0 0 0-1 0v3h-3a.5.5 0 0 0 0 1h3v3a.5.5 0 0 0 1 0v-3h3a.5.5 0 0 0 0-1h-3z" />
+                </svg>
+                New
+            </a>
+            <a class="btn btn-primary">
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-file-earmark-plus-fill" viewBox="0 0 16 16">
+                    <path d="M9.293 0H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h8a2 2 0 0 0 2-2V4.707A1 1 0 0 0 13.707 4L10 .293A1 1 0 0 0 9.293 0M9.5 3.5v-2l3 3h-2a1 1 0 0 1-1-1M8.5 7v1.5H10a.5.5 0 0 1 0 1H8.5V11a.5.5 0 0 1-1 0V9.5H6a.5.5 0 0 1 0-1h1.5V7a.5.5 0 0 1 1 0" />
+                </svg>
+                Import CSV
+            </a>
+        </div>
+        <div class="col-auto d-flex gap-2">
+            <form asp-controller="@ViewContext.RouteData.Values["controller"]" asp-action="Index" method="get">
+                <div class="input-group">
+                    <input type="text" name="searchString" class="form-control" placeholder="Enter text"
+                           aria-label="Search input" aria-describedby="button-addon1"
+                           value="@Context.Request.Query["searchString"]">
+                    <button class="btn btn-outline-secondary" type="submit" id="button-addon1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-search" viewBox="0 0 16 16">
+                            <path d="M11.742 10.344a6.5 6.5 0 1 0-1.397 1.398h-.001q.044.06.098.115l3.85 3.85a1 1 0 0 0 1.415-1.414l-3.85-3.85a1 1 0 0 0-.115-.1zM12 6.5a5.5 5.5 0 1 1-11 0 5.5 5.5 0 0 1 11 0" />
+                        </svg>
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<div class="table-responsive">
+    @RenderSection("TableContent", required: false)
+</div>
+
+<div>
+    <nav aria-label="...">
+        <ul class="pagination justify-content-center">
+            @if (currentPage > 1)
+            {
+                <li class="page-item">
+                    <a asp-action="Index" asp-route-page="@(currentPage - 1)" class="page-link">Trước</a>
+                </li>
+            }
+            @if (totalPages > 1)
+            {
+                int previousPage = 0; // Lưu trang trước đó
+
+                @for (int i = 1; i <= totalPages; i++)
+                {
+                    if (i <= 3 || i > totalPages - 3 || (i >= currentPage - 1 && i <= currentPage + 1))
+                    {
+                        // Nếu khoảng cách giữa i và previousPage > 1, thêm "..." có ô nhập số
+                        if (previousPage > 0 && i - previousPage > 1)
+                        {
+                            <li class="page-item disabled">
+                                <input type="number" class="page-input" min="1" max="@totalPages" placeholder="..." onkeypress="handlePageJump(event, this)">
+                            </li>
+                        }
+
+                        <li class="page-item @(i == currentPage ? "active" : "")">
+                            <a asp-action="Index" asp-route-page="@i" class="page-link">@i</a>
+                        </li>
+
+                        previousPage = i; // Cập nhật trang trước đó
+                    }
+                }
+            }
+
+            @if (currentPage < totalPages)
+            {
+                <li class="page-item">
+                    <a asp-action="Index" asp-route-page="@(currentPage + 1)" class="page-link">Tiếp</a>
+                </li>
+
+            }
+        </ul>
+    </nav>
+</div>
+
+<script>
+    function handlePageJump(event, input) {
+        if (event.key === "Enter") {
+            let page = parseInt(input.value);
+            let maxPage = parseInt(input.max);
+
+            if (!isNaN(page) && page >= 1 && page <= maxPage) {
+                window.location.href = `?page=${page}`;
+            }
+        }
+    }
+</script>

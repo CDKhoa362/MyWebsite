@@ -1,0 +1,70 @@
+﻿@model MyWebsite.Models.MyInfor.UserPosting
+
+<form action="Create" method="post" class="container">
+    <h2 class="text-center mb-3">Cập nhật thông tin</h2>
+
+    <!--Row 1-->
+    <div class="row justify-content-center">
+        <div class="col-sm-5 col-md-3">
+            <div class="form-floating mb-2">
+                <input class="form-control" id="FirstName" asp-for="FirstName">
+                <label for="FirstName">Họ</label>
+                <span asp-validation-for="FirstName" class="text-danger small"></span>
+            </div>
+        </div>
+
+        <div class="col-sm-5 col-md-3">
+            <div class="form-floating mb-2">
+                <input class="form-control" id="LastName" asp-for="LastName">
+                <label for="LastName">Tên</label>
+                <span asp-validation-for="LastName" class="text-danger small"></span>
+            </div>
+        </div>
+    </div>
+
+    <!--Row 2-->
+    <div class="row justify-content-center">
+        <div class="col-sm-5 col-md-3">
+            <div class="form-floating mb-2">
+                <input type="date" class="form-control" id="DOB" asp-for="DOB">
+                <label for="DOB">Ngày sinh</label>
+                <span asp-validation-for="DOB" class="text-danger small"></span>
+            </div>
+        </div>
+
+        <div class="col-sm-5 col-md-3">
+            <div class="d-flex flex-column">
+                <label class="mb-1">Giới tính</label>
+                <div class="d-flex gap-2">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="Gender" value="true">
+                        <label class="form-check-label">Nam</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" asp-for="Gender" value="false">
+                        <label class="form-check-label">Nữ</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--Row 3-->
+    <div class="row justify-content-center">
+        <div class="col-sm-10 col-md-6">
+            <div class="form-floating mb-2">
+                <input type="input" class="form-control" id="HouseNumber" asp-for="HouseNumber">
+                <label for="HouseNumber">Số nhà</label>
+                <span asp-validation-for="HouseNumber" class="text-danger small"></span>
+            </div>
+        </div>
+    </div>
+
+    <!--Row 4-->
+
+    
+
+    <div class="text-center">
+        <button type="submit" class="btn btn-primary px-4">Cập nhật</button>
+    </div>
+</form>
