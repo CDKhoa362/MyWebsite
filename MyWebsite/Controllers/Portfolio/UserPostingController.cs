@@ -4,7 +4,10 @@ using Microsoft.AspNetCore.Razor.TagHelpers;
 using MyWebsite.Models.MyInfor;
 using MyWebsite.Repositories;
 using MyWebsite.Areas.Admin.Models.Location;
+using MyWebsite.ViewModels;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using System.IO.Compression;
 
 namespace MyWebsite.Controllers.Portfolio
 {
@@ -31,15 +34,43 @@ namespace MyWebsite.Controllers.Portfolio
             return View(userPosting);
         }
 
-        public async Task<IActionResult> Create()
+        public IActionResult Create()
         {
             return View();
         }
 
-        //public async Task<IActionResult> Create(UserPosting userPosting)
-        //{
-        //    return RedirectToAction(nameof(Index));
-        //}
+        [HttpPost]
+        public async Task<IActionResult> Create(UserPostingViewModel userPostingVm)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = await _userManager.GetUserAsync(User);
+                var userPosting = new UserPosting
+                {
+                    UserId = _userManager.GetUserId(User),
+                    FirstName = userPostingVm.FirstName,
+                    LastName = userPostingVm.LastName,
+                    Major = userPostingVm.Major,
+                    Gender = userPostingVm.Gender,
+                    DOB = userPostingVm.DOB,
+                    HouseNumber = userPostingVm.HouseNumber,
+                    Address = userPostingVm.Address,
+                };
+
+                if (userPostingVm.Avatar != null && userPostingVm.Avatar.Length > 0)
+                {
+                    using (var memoryStream = new MemoryStream())
+                    {
+                        await userPostingVm.Avatar.CopyToAsync(memoryStream);
+                        userPosting.Avatar = memoryStream.ToArray();
+                    }
+                }
+
+
+                await _repository.AddAsync(userPosting);
+            }
+            return RedirectToAction(nameof(Index));
+        }
 
     }
 }

@@ -27,9 +27,6 @@ namespace MyWebsite.Data
                     .HasMaxLength(50)
                     .HasColumnName("UserPostingId");
 
-                entity.Property(e => e.AvatarPath)
-                    .IsRequired(false);
-
                 entity.Property(e => e.FirstName)
                     .IsRequired(false);
 
@@ -38,7 +35,8 @@ namespace MyWebsite.Data
 
                 entity.Property(e => e.DOB)
                     .IsRequired(false)
-                    .HasConversion(v => v.ToString(), v => DateOnly.Parse(v)); ;
+                    .HasConversion(v => v.ToString(),
+                                   v => string.IsNullOrEmpty(v) ? default : DateOnly.Parse(v));
 
                 entity.Property(e => e.HouseNumber)
                     .IsRequired(false)
@@ -47,6 +45,14 @@ namespace MyWebsite.Data
                 entity.Property(e => e.Address)
                       .IsRequired(false)
                       .HasMaxLength(50);
+
+                entity.Property(e => e.Major)
+                      .IsRequired(false);
+
+                entity.Property(e => e.Avatar)
+                      .IsRequired(false)
+                      .HasColumnType("varbinary(max)");
+
 
                 entity.HasOne(e => e.User)
                       .WithOne()

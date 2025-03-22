@@ -48,7 +48,7 @@
                     DOB = new DateOnly(1990, 1, 1),
                     HouseNumber = "123",
                     Address = "123 Main St",
-                    AvatarPath = "avatar.jpg",
+                    Avatar = new byte[51200],  
                     UserId = "1"
                 };
 
@@ -88,7 +88,7 @@
                     DOB = new DateOnly(1990, 1, 1),
                     HouseNumber = "123",
                     Address = "123 Main St",
-                    AvatarPath = "avatar.jpg",
+                    Avatar = new byte[51200],
                     UserId = "1"
                 };
 
@@ -132,7 +132,7 @@
                     DOB = new DateOnly(1990, 1, 1),
                     HouseNumber = "123",
                     Address = "123 Main St",
-                    AvatarPath = "avatar.jpg",
+                    Avatar = new byte[51200],
                     UserId = "1"
                 };
 
@@ -145,7 +145,7 @@
                     DOB = new DateOnly(1990, 1, 1),
                     HouseNumber = "123",
                     Address = "123 Main St",
-                    AvatarPath = "avatar.jpg",
+                    Avatar = new byte[51200],
                     UserId = "2"
                 };
                 await db.UserPostings.AddRangeAsync(userPosting, userPosting2);
@@ -180,7 +180,7 @@
                     DOB = new DateOnly(1990, 1, 1),
                     HouseNumber = "123",
                     Address = "123 Main St",
-                    AvatarPath = "avatar.jpg",
+                    Avatar = new byte[51200],
                     UserId = "1"
                 };
 
@@ -216,7 +216,7 @@
                     DOB = new DateOnly(1990, 1, 1),
                     HouseNumber = "123",
                     Address = "123 Main St",
-                    AvatarPath = "avatar.jpg",
+                    Avatar = new byte[51200],
                     UserId = "1"
                 };
                 await db.UserPostings.AddAsync(userPosting);

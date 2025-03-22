@@ -1,4 +1,24 @@
-﻿// Please see documentation at https://learn.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿document.addEventListener("DOMContentLoaded", function () {
+    let typingElement = document.querySelector(".typing");
+    if (!typingElement) return;
 
-// Write your JavaScript code.
+    let text = typingElement.getAttribute("data-text") || "Developer";
+    let index = 0;
+    let delayAfterFinish = 2000;
+
+    function typeEffect() {
+        if (index < text.length) {
+            typingElement.textContent = text.substring(0, index + 1);
+            index++;
+            setTimeout(typeEffect, 100);
+        } else {
+            setTimeout(() => {
+                typingElement.textContent = "";
+                index = 0;
+                typeEffect();
+            }, delayAfterFinish);
+        }
+    }
+
+    typeEffect();
+});
